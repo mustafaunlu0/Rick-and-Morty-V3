@@ -8,7 +8,7 @@ import retrofit2.http.Path
 interface CharacterApi {
 
     @GET("character")
-    suspend fun getCharacters() : ResponseBody
+    suspend fun getCharacters() : List<CharacterListDto>
 
     @GET("character/{characterNumber}")
     suspend fun getCharacterDetail(

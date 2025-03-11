@@ -23,7 +23,7 @@ interface CharacterDao {
             WHERE LOWER(name) LIKE '%' || LOWER(:query) || '%'
         """
     )
-    suspend fun searchCharacterLşst(query: String) : List<CharacterListEntity>
+    suspend fun searchCharacterList(query: String) : List<CharacterListEntity>
 
 
 }
