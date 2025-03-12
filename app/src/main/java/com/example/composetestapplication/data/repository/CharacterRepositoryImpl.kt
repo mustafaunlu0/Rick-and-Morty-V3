@@ -2,17 +2,19 @@ package com.example.composetestapplication.data.repository
 
 import com.example.composetestapplication.data.local.CharacterDatabase
 import com.example.composetestapplication.data.mapper.toCharacterList
+import com.example.composetestapplication.data.mapper.toCharacterListEntity
 import com.example.composetestapplication.data.remote.CharacterApi
-import com.example.composetestapplication.domain.model.CharacterList
+import com.example.composetestapplication.domain.model.CharacterListing
 import com.example.composetestapplication.domain.repository.CharacterRepository
 import com.example.composetestapplication.util.Resource
-import com.example.composetestapplication.util.callSafeApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Singleton
 
+@Singleton
 class CharacterRepositoryImpl(
-    val api  : CharacterApi,
-    val db : CharacterDatabase
+    private val api: CharacterApi,
+    db: CharacterDatabase
 ) : CharacterRepository {
 
     private val dao = db.dao
@@ -20,7 +22,7 @@ class CharacterRepositoryImpl(
     override suspend fun getCharacters(
         fetchFromRemote: Boolean,
         query: String
-    ): Flow<Resource<List<CharacterList>>> =
+    ): Flow<Resource<List<CharacterListing>>> =
         flow {
             emit(Resource.Loading(true))
 
@@ -32,19 +34,25 @@ class CharacterRepositoryImpl(
             val isDbEmpty = localList.isEmpty() && query.isBlank() //first loadqing
             val shouldJustLoadFromCache = !isDbEmpty && !fetchFromRemote
 
-            if(shouldJustLoadFromCache){
+            if (shouldJustLoadFromCache) {
                 emit(Resource.Loading(false))
                 return@flow
             }
 
-            val remoteListing = callSafeApi {
-                val response = api.getCharacters()
-                Resource.Success(response)
+            val remoteListing = try {
+                api.getCharacters()
+            } catch (e: Exception) {
+                emit(Resource.Error(e))
+                null
             }
 
-
-
-
+            remoteListing?.let {
+                val characterEntity = it.results.map { dto -> dto.toCharacterListEntity() }
+                dao.clearCharacterList()
+                dao.insertCharacterList(characterEntity)
+                emit(Resource.Success(characterEntity.map { entity -> entity.toCharacterList() }))
+                emit(Resource.Loading(false))
+            }
 
         }
 }
