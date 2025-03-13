@@ -15,4 +15,8 @@ interface CharacterApi {
     suspend fun getCharacterDetail(
         @Path("characterNumber") characterNumber : String
     ) : ResponseBody
+
+    companion object {
+        const val BASE_URL = ""
+    }
 }
