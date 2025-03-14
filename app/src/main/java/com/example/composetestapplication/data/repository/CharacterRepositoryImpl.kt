@@ -9,10 +9,11 @@ import com.example.composetestapplication.domain.repository.CharacterRepository
 import com.example.composetestapplication.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CharacterRepositoryImpl(
+class CharacterRepositoryImpl @Inject constructor(
     private val api: CharacterApi,
     db: CharacterDatabase
 ) : CharacterRepository {

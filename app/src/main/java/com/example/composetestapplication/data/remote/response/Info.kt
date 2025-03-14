@@ -1,6 +1,6 @@
-package com.example.composetestapplication.data.remote.dto
+package com.example.composetestapplication.data.remote.response
 
-data class InfoDto(
+data class Info(
     val count: Int,
     val next: String,
     val pages: Int,

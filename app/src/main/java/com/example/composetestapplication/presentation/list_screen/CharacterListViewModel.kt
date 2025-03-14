@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.composetestapplication.domain.model.CharacterListing
 import com.example.composetestapplication.domain.repository.CharacterRepository
 import com.example.composetestapplication.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,25 @@ class CharacterListViewModel @Inject constructor(
 
     private var job : Job? = null
 
+    init {
+        getCharacters()
+        /*
+        state = state.copy(
+            listOf(
+                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
+                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
+                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
+                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
+                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
+                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
+                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu")
+            )
+        )
+
+         */
+
+    }
+
 
     fun onEvent(event: CharacterListEvent) {
         when (event) {
@@ -31,6 +51,7 @@ class CharacterListViewModel @Inject constructor(
             }
 
             is CharacterListEvent.OnSearchQueryChange -> {
+                state = state.copy(searchQuery = event.query)
                 job?.cancel()
                 job = viewModelScope.launch {
                     delay(500L)
@@ -51,7 +72,9 @@ class CharacterListViewModel @Inject constructor(
             ).collectLatest { result ->
 
                 when (result) {
-                    is Resource.Success -> { state = state.copy(characters = result.data.orEmpty())  }
+                    is Resource.Success -> {
+                        state = state.copy(characters = result.data.orEmpty())
+                    }
 
                     is Resource.Error -> { println("Error: ${result.error}") }
 

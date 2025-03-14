@@ -1,14 +1,14 @@
-package com.example.composetestapplication.data.remote.dto
+package com.example.composetestapplication.data.remote.response
 
-data class CharacterDto (
+data class CharacterResponse (
     val created: String,
     val episode: List<String>,
     val gender: String,
     val id: Int,
     val image: String,
-    val location: LocationDto,
+    val location: Location,
     val name: String,
-    val origin: OriginDto,
+    val origin: Origin,
     val species: String,
     val status: String,
     val type: String,

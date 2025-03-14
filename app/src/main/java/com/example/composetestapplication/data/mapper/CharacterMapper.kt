@@ -1,7 +1,7 @@
 package com.example.composetestapplication.data.mapper
 
 import com.example.composetestapplication.data.local.CharacterListEntity
-import com.example.composetestapplication.data.remote.dto.CharacterDto
+import com.example.composetestapplication.data.remote.response.CharacterResponse
 import com.example.composetestapplication.domain.model.CharacterListing
 
 fun CharacterListEntity.toCharacterList() : CharacterListing {
@@ -13,7 +13,7 @@ fun CharacterListEntity.toCharacterList() : CharacterListing {
     )
 }
 
-fun CharacterDto.toCharacterListEntity() : CharacterListEntity {
+fun CharacterResponse.toCharacterListEntity() : CharacterListEntity {
     return CharacterListEntity(
         id = id,
         name = name,
