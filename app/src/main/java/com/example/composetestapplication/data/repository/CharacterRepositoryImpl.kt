@@ -1,9 +1,11 @@
 package com.example.composetestapplication.data.repository
 
 import com.example.composetestapplication.data.local.CharacterDatabase
+import com.example.composetestapplication.data.mapper.toCharacterDetail
 import com.example.composetestapplication.data.mapper.toCharacterList
 import com.example.composetestapplication.data.mapper.toCharacterListEntity
 import com.example.composetestapplication.data.remote.CharacterApi
+import com.example.composetestapplication.domain.model.CharacterDetail
 import com.example.composetestapplication.domain.model.CharacterListing
 import com.example.composetestapplication.domain.repository.CharacterRepository
 import com.example.composetestapplication.util.Resource
@@ -56,4 +58,24 @@ class CharacterRepositoryImpl @Inject constructor(
             }
 
         }
+
+    override suspend fun getCharacter(charId: String): Flow<Resource<CharacterDetail>> =
+        flow {
+
+            emit(Resource.Loading(isLoading = true))
+
+            val character =  try {
+                api.getCharacterDetail(charId)
+            }catch (e : Exception){
+                emit(Resource.Error(e))
+                null
+            }
+
+            character?.let {
+                emit(Resource.Success(character.toCharacterDetail()))
+                emit(Resource.Loading(isLoading = false))
+            }
+
+        }
+
 }
