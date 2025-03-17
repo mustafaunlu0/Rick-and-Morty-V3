@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.composetestapplication.presentation.detail_screen.CharacterDetailScreen
 import com.example.composetestapplication.presentation.list_screen.CharacterListingScreen
 import com.example.composetestapplication.ui.theme.ComposeTestApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
             ComposeTestApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.tertiary).padding(vertical = 20.dp)) {
                     Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.tertiary).padding(10.dp), contentAlignment = Alignment.Center) {
-                        CharacterListingScreen()
+                        CharacterDetailScreen("9")
                     }
                 }
             }

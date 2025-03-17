@@ -26,21 +26,6 @@ class CharacterListViewModel @Inject constructor(
 
     init {
         getCharacters()
-        /*
-        state = state.copy(
-            listOf(
-                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
-                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
-                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
-                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
-                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
-                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu"),
-                CharacterListing(0, "Rick Sanchez", "testadsasdadsadsadsadsads", "auu")
-            )
-        )
-
-         */
-
     }
 
 
