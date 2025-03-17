@@ -22,12 +22,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.composetestapplication.presentation.list_screen.component.CharacterItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import dagger.hilt.android.AndroidEntryPoint
 
 
 @Composable
 fun CharacterListingScreen(
-    viewModel : CharacterListViewModel = hiltViewModel()
+    viewModel : CharacterListViewModel = hiltViewModel(),
+    onCharacterClick : (String) -> Unit
 ) {
 
     val state = viewModel.state
@@ -55,7 +55,9 @@ fun CharacterListingScreen(
                 items(state.characters.size) { i ->
 
                     val character = state.characters[i]
-                    CharacterItem(modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),characterListing = character)
+                    CharacterItem(modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),characterListing = character){ charId ->
+                        onCharacterClick(charId)
+                    }
 
                     if (i < state.characters.size -1) {
                         HorizontalDivider(thickness = 2.dp, color = Color.Black, modifier = Modifier.padding(16.dp))

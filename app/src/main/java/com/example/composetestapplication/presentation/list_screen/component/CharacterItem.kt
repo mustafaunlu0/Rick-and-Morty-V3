@@ -1,6 +1,7 @@
 package com.example.composetestapplication.presentation.list_screen.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,7 +31,8 @@ import com.example.composetestapplication.domain.model.CharacterListing
 @Composable
 fun CharacterItem(
     characterListing: CharacterListing,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onCharacterClick : (String) -> Unit
 ) {
 
     Box(
@@ -38,7 +40,9 @@ fun CharacterItem(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth().clickable {
+                    onCharacterClick(characterListing.id.toString())
+                },
             verticalAlignment = Alignment.CenterVertically,
         ) {
 
