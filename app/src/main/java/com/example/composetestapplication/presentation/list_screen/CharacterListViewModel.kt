@@ -10,7 +10,11 @@ import com.example.composetestapplication.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,8 +25,9 @@ class CharacterListViewModel @Inject constructor(
 
     var state by mutableStateOf(CharacterListState())
         private set
+    private var _query = MutableStateFlow("")
 
-    private var job : Job? = null
+    var query : StateFlow<String> = _query.asStateFlow()
 
     init {
         getCharacters()
@@ -37,10 +42,13 @@ class CharacterListViewModel @Inject constructor(
 
             is CharacterListEvent.OnSearchQueryChange -> {
                 state = state.copy(searchQuery = event.query)
-                job?.cancel()
-                job = viewModelScope.launch {
-                    delay(500L)
-                    getCharacters()
+
+                viewModelScope.launch {
+                    query
+                        .debounce(500L)
+                        .collectLatest {
+                            getCharacters()
+                        }
                 }
             }
         }
