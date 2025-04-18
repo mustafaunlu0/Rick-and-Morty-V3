@@ -19,6 +19,10 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ComposeTestApplication"
+rootProject.name = "Multi-Module RVM3"
 include(":app")
- 
+include(":data")
+include(":domain")
+include(":app:feature")
+include(":feature")
+include(":common")

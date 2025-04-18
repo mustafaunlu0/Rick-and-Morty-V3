@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.composetestapplication"
-        minSdk = 24
+        minSdk = 29
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -46,6 +46,8 @@ android {
 
 dependencies {
 
+    implementation(project(":feature"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -72,15 +74,10 @@ dependencies {
     implementation (libs.okhttp)
     implementation (libs.logging.interceptor)
 
-    // Room
-    implementation (libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
 
     // Kotlin Extensions and Coroutines support for Room
     implementation (libs.androidx.room.ktx)
 
-    //Glide
-    implementation (libs.glide)
 
     implementation(libs.accompanist.swiperefresh)
 
