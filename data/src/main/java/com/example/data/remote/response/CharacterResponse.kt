@@ -1,5 +1,8 @@
 package com.example.composetestapplication.data.remote.response
 
+import com.example.composetestapplication.domain.model.Location
+import com.example.composetestapplication.domain.model.Origin
+
 data class CharacterResponse (
     val created: String,
     val episode: List<String>,

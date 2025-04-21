@@ -5,7 +5,6 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
-    id("com.google.devtools.ksp")
 
 }
 
@@ -45,7 +44,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":data"))
     implementation(project(":feature"))
 
     implementation(libs.androidx.core.ktx)
@@ -79,6 +78,5 @@ dependencies {
     implementation (libs.androidx.room.ktx)
 
 
-    implementation(libs.accompanist.swiperefresh)
 
 }

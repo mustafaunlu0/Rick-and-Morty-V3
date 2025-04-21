@@ -4,12 +4,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.composetestapplication.domain.model.CharacterListing
 import com.example.composetestapplication.domain.repository.CharacterRepository
-import com.example.common.util.Resource
+import com.example.common.util.util.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -65,13 +62,13 @@ class CharacterListViewModel @Inject constructor(
             ).collectLatest { result ->
 
                 when (result) {
-                    is com.example.common.util.Resource.Success -> {
+                    is Resource.Success -> {
                         state = state.copy(characters = result.data.orEmpty())
                     }
 
-                    is com.example.common.util.Resource.Error -> { println("Error: ${result.error}") }
+                    is Resource.Error -> { println("Error: ${result.error}") }
 
-                    is com.example.common.util.Resource.Loading -> { state = state.copy(isLoading = result.isLoading) }
+                    is Resource.Loading -> { state = state.copy(isLoading = result.isLoading) }
                 }
             }
         }

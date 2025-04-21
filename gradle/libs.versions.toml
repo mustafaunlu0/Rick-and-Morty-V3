@@ -17,7 +17,7 @@ composeBom = "2024.04.01"
 loggingInterceptor = "5.0.0-alpha.3"
 okhttp = "5.0.0-alpha.3"
 retrofit = "2.11.0"
-roomRuntime = "2.6.1"
+roomRuntime = "2.7.0"
 appcompat = "1.7.0"
 material = "1.12.0"
 
